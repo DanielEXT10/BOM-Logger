@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Input Table Example</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.4.4/math.js" ></script>
+</head>
+<body>
+	<table>
+		<thead>
+			<tr>
+				<th>Voltage</th>
+				<th>Torque</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><input required type="text" name="voltage1"></td>
+				<td><input required type="text" name="torque1"></td>
+			</tr>
+			<tr>
+				<td><input required type="text" name="voltage2"></td>
+				<td><input required type="text" name="torque2"></td>
+			</tr>
+            <tr>
+				<td><input required type="text" name="voltage3"></td>
+				<td><input required type="text" name="torque3"></td>
+			</tr>
+			<tr>
+				<td><input required type="text" name="voltage4"></td>
+				<td><input required type="text" name="torque4"></td>
+			</tr>
+            <tr>
+				<td><input required type="text" name="voltage5"></td>
+				<td><input required type="text" name="torque5"></td>
+			</tr>
+			<tr>
+				<td><input required type="text" name="voltage6"></td>
+				<td><input required type="text" name="torque6"></td>
+			</tr>
+            <tr>
+				<td><input required type="text" name="voltage7"></td>
+				<td><input required type="text" name="torque7"></td>
+			</tr>
+			<tr>
+				<td><input required type="text" name="voltage8"></td>
+				<td><input required type="text" name="torque8"></td>
+			</tr>
+            <tr>
+				<td><input required type="text" name="voltage9"></td>
+				<td><input required type="text" name="torque9"></td>
+			</tr>
+			<tr>
+				<td><input required type="text" name="voltage10"></td>
+				<td><input required type="text" name="torque10"></td>
+			</tr>
+            <tr>
+				<td><input required type="text" name="voltage9"></td>
+				<td><input required type="text" name="torque9"></td>
+			</tr>
+			<tr>
+				<td><input  type="text" name="voltage10" required></td>
+				<td><input required type="text" name="torque10"></td>
+			</tr>
+		</tbody>
+	</table>
+	<button onclick="updateCalibration()">Get Data</button>
+	<p id="gradient">0</p>
+	<p id="intercept">0</p>
+	<script>
+
+		
+
+		function getData() {
+			let table = document.querySelector('table');
+			let rows = table.rows;
+			
+			let voltage_measured = [];
+            let torque_measured = []
+
+			for (let i = 1; i < rows.length; i++) {
+				let voltage = rows[i].cells[0].querySelector('input').value;
+				let torque = rows[i].cells[1].querySelector('input').value;
+				if(voltage != '' & torque!= ''){
+					
+					voltage_measured.push(voltage);
+                	torque_measured.push(torque);
+				}
+				
+			}
+
+			const calibration_data = {voltage_measured,torque_measured}
+			console.log(calibration_data)
+			return calibration_data
+
+			
+		}
+
+
+      async function updateCalibration(){
+
+		const calibration_data = getData()
+		const options ={
+			method: 'POST',
+			body: JSON.stringify(calibration_data),
+			headers:{
+				'Content-Type': 'application/JSON'
+			}
+		}
+
+		try{
+			const res = await fetch('/calibration',options);
+			
+			
+			const gradient_p = document.getElementById("gradient");
+			const intercept_p = document.getElementById("intercept");
+
+			//gradient_p.innerHTML = gradient;
+			//intercept_p.innerHTML = yintercept;
+			//console.log(calibration_data)
+		}
+		catch(error){
+			console.log(error)
+		}
+
+		 fetch('/calibrationValues')
+		 	.then(response => response.json())
+			.then(data => {
+				console.log(data)
+			})                                                           
+
+
+	  }
+	</script>
+</body>
+</html>
