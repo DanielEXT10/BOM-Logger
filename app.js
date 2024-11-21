@@ -36,10 +36,10 @@ app.post('/calibration', (req,res)=>{
     console.log(`y = ${gradient}x + ${yintercept}`);
     const calibration_data = {gradient, yintercept};
     
-    fs.writeFile('calibration.json', JSON.stringify(calibration_data), (err) => {
+    /*fs.writeFile('calibration.json', JSON.stringify(calibration_data), (err) => {
         if (err) throw err;
         console.log('Values saved to file');
-      });
+      });*/
 
     
 

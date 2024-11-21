@@ -110,26 +110,22 @@
 		try{
 			const res = await fetch('/calibration',options);
 			
-			
-			const gradient_p = document.getElementById("gradient");
-			const intercept_p = document.getElementById("intercept");
-
-			//gradient_p.innerHTML = gradient;
-			//intercept_p.innerHTML = yintercept;
-			//console.log(calibration_data)
 		}
 		catch(error){
 			console.log(error)
 		}
 
-		 fetch('/calibrationValues')
+		fetch('/calibrationValues')
 		 	.then(response => response.json())
 			.then(data => {
 				console.log(data)
 			})                                                           
-
+		
 
 	  }
+	  
+			                                                       
+
 	</script>
 </body>
 </html>
